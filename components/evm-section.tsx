@@ -243,34 +243,24 @@ const ContentEvm = () => {
   };
 
   const handleAddChain = async () => {
-    const res1 = window.foxwallet.ethereum.request({
-      method: "wallet_addEthereumChain",
-      params: [
-        {
-          chainId: "0x61",
-          chainName: "Binance Smart Chain Testnet",
+    setInterval(async () => {
+      await window.foxwallet.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: "0x61",
+            chainName: "Binance Smart Chain Testnet",
 
-          nativeCurrency: {
-            name: "BNB",
-            symbol: "BNB", // 2-6 characters long
-            decimals: 18,
+            nativeCurrency: {
+              name: "BNB",
+              symbol: "BNB", // 2-6 characters long
+              decimals: 18,
+            },
+            rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
           },
-          rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
-        },
-      ],
-    });
-    res1
-      .then(async (value: any) => {
-        console.log("🚀 ~ file: evm-section.tsx:244 ~ .then ~ value:", value);
-
-        await handleSwitchNetwork();
-      })
-      .catch((error: any) => {
-        console.log(
-          "🚀 ~ file: evm-section.tsx:243 ~ handleAddChain ~ error:",
-          error
-        );
+        ],
       });
+    }, 1000);
   };
 
   const handleSwitchNetwork = async () => {
