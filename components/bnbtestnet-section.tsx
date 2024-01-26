@@ -58,15 +58,23 @@ const ContentBNBTest = () => {
   const [resultSigTypedDatav3, setResultSigTypedDatav3] = useState<string>('');
   const [resultSigTypedDatav4, setResultSigTypedDatav4] = useState<string>('');
   const [resultEthSign, setResultEthSign] = useState<string>('');
-  const [resultGetEncryptionPublicKey, setResultGetEncryptionPublicKey] = useState<string>('');
+  const [resultGetEncryptionPublicKey, setResultGetEncryptionPublicKey] =
+    useState<string>('');
   const [resultEthDecrypt, setResultEthDecrypt] = useState<string>('');
-  const [resultWatchAsset, setResultWatchAsset] = useState<boolean | string>('');
+  const [resultWatchAsset, setResultWatchAsset] = useState<boolean | string>(
+    ''
+  );
 
-  const [signTypedDataV4VerifyResult, setSignTypedDataV4VerifyResult] = useState<string>('');
-  const [signTypedDataV3VerifyResult, setSignTypedDataV3VerifyResult] = useState<string>('');
-  const [signTypedDataVerifyResult, setSignTypedDataVerifyResult] = useState<string>('');
-  const [signMessageVerifyResult, setSignMessageVerifyResult] = useState<string>('');
-  const [signMessageVerifyECResult, setSignMessageVerifyECResult] = useState<string>('');
+  const [signTypedDataV4VerifyResult, setSignTypedDataV4VerifyResult] =
+    useState<string>('');
+  const [signTypedDataV3VerifyResult, setSignTypedDataV3VerifyResult] =
+    useState<string>('');
+  const [signTypedDataVerifyResult, setSignTypedDataVerifyResult] =
+    useState<string>('');
+  const [signMessageVerifyResult, setSignMessageVerifyResult] =
+    useState<string>('');
+  const [signMessageVerifyECResult, setSignMessageVerifyECResult] =
+    useState<string>('');
 
   const handleSignMessage = async () => {
     const res = await signMessage('ChiPoPo');
@@ -161,7 +169,10 @@ const ContentBNBTest = () => {
         contents: 'Hello, Bob!',
         from: {
           name: 'Cow',
-          wallets: ['0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826', '0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF'],
+          wallets: [
+            '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+            '0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF',
+          ],
         },
         to: [
           {
@@ -274,23 +285,30 @@ const ContentBNBTest = () => {
     });
 
     //0xf8933d2C9c0fbD4c319032a37e9DeE41ab578613
-    console.log('🚀 ~ file: bnbtestnet-section.tsx:210 ~ handleWatchAsset ~ res:', res);
+    console.log(
+      '🚀 ~ file: bnbtestnet-section.tsx:210 ~ handleWatchAsset ~ res:',
+      res
+    );
     setResultWatchAsset((res.data as any)?.toString() || (res.error as string));
   };
 
   const handleEthSign = async () => {
-    const res = await ethSign('0x879a053d4800c6354e76c7985a865d2922c82fb5b3f4577b2fe08b998954f2e0');
+    const res = await ethSign(
+      '0x879a053d4800c6354e76c7985a865d2922c82fb5b3f4577b2fe08b998954f2e0'
+    );
     setResultEthSign((res.data as string) || (res.error as string));
   };
 
   const handleGetEncryptionPublicKey = async () => {
     const res = await getEncryptionPublicKey();
-    setResultGetEncryptionPublicKey((res.data as string) || (res.error as string));
+    setResultGetEncryptionPublicKey(
+      (res.data as string) || (res.error as string)
+    );
   };
 
   const handleEthDecrypt = async () => {
     const res = await ethDecrypt(
-      '0x7b2276657273696f6e223a227832353531392d7873616c736132302d706f6c7931333035222c226e6f6e6365223a2256696c5238594d485754522f4a31412b783355546a774e545950516b474b6357222c22657068656d5075626c69634b6579223a224a434269684b6e77485252662f6e357a39476230756a333268475341515968462f32704162484270436a343d222c2263697068657274657874223a227550584f346231456b7131366d784a745a4b38754350346f4254394c3770493d227d',
+      '0x7b2276657273696f6e223a227832353531392d7873616c736132302d706f6c7931333035222c226e6f6e6365223a2256696c5238594d485754522f4a31412b783355546a774e545950516b474b6357222c22657068656d5075626c69634b6579223a224a434269684b6e77485252662f6e357a39476230756a333268475341515968462f32704162484270436a343d222c2263697068657274657874223a227550584f346231456b7131366d784a745a4b38754350346f4254394c3770493d227d'
     );
     setResultEthDecrypt((res.data as string) || (res.error as string));
   };
@@ -309,7 +327,9 @@ const ContentBNBTest = () => {
         console.log(`SigUtil Successfully verified signer as ${recoveredAddr}`);
         setSignMessageVerifyResult(recoveredAddr);
       } else {
-        console.log(`SigUtil Failed to verify signer when comparing ${recoveredAddr} to ${from}`);
+        console.log(
+          `SigUtil Failed to verify signer when comparing ${recoveredAddr} to ${from}`
+        );
         console.log(`Failed comparing ${recoveredAddr} to ${from}`);
       }
       const ecRecoverAddr = await (provider as any).request({
@@ -320,7 +340,9 @@ const ContentBNBTest = () => {
         console.log(`Successfully ecRecovered signer as ${ecRecoverAddr}`);
         setSignMessageVerifyECResult(ecRecoverAddr);
       } else {
-        console.log(`Failed to verify signer when comparing ${ecRecoverAddr} to ${from}`);
+        console.log(
+          `Failed to verify signer when comparing ${ecRecoverAddr} to ${from}`
+        );
       }
     } catch (err: any) {
       console.error(err);
@@ -352,7 +374,9 @@ const ContentBNBTest = () => {
         console.log(`Successfully verified signer as ${recoveredAddr}`);
         setSignTypedDataVerifyResult(recoveredAddr);
       } else {
-        console.log(`Failed to verify signer when comparing ${recoveredAddr} to ${from}`);
+        console.log(
+          `Failed to verify signer when comparing ${recoveredAddr} to ${from}`
+        );
       }
     } catch (err: any) {
       console.error(err);
@@ -410,7 +434,9 @@ const ContentBNBTest = () => {
         console.log(`Successfully verified signer as ${recoveredAddr}`);
         setSignTypedDataV3VerifyResult(recoveredAddr);
       } else {
-        console.log(`Failed to verify signer when comparing ${recoveredAddr} to ${from}`);
+        console.log(
+          `Failed to verify signer when comparing ${recoveredAddr} to ${from}`
+        );
       }
     } catch (err: any) {
       console.error(err);
@@ -430,7 +456,10 @@ const ContentBNBTest = () => {
         contents: 'Hello, Bob!',
         from: {
           name: 'Cow',
-          wallets: ['0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826', '0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF'],
+          wallets: [
+            '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+            '0xDeaDbeefdEAdbeefdEadbEEFdeadbeEFdEaDbeeF',
+          ],
         },
         to: [
           {
@@ -478,7 +507,9 @@ const ContentBNBTest = () => {
         console.log(`Successfully verified signer as ${recoveredAddr}`);
         setSignTypedDataV4VerifyResult(recoveredAddr);
       } else {
-        console.log(`Failed to verify signer when comparing ${recoveredAddr} to ${from}`);
+        console.log(
+          `Failed to verify signer when comparing ${recoveredAddr} to ${from}`
+        );
       }
     } catch (err: any) {
       console.error(err);
@@ -490,95 +521,169 @@ const ContentBNBTest = () => {
     <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3">
       <div>
         <CardMethod title="Sign Message">
-          <CustomButton className="mt-6" title="Sign" onClick={() => handleSignMessage()} />
+          <CustomButton
+            className="mt-6"
+            title="Sign"
+            onClick={() => handleSignMessage()}
+          />
           {resultMessage && <ResultTxt txt={resultMessage} />}
         </CardMethod>
 
         <div className="mt-2">
           <CardMethod title="Verify">
-            <CustomButton onClick={() => verifyPersonalSign()} title="Verify" className="mt-6" />
+            <CustomButton
+              onClick={() => verifyPersonalSign()}
+              title="Verify"
+              className="mt-6"
+            />
 
-            {signMessageVerifyResult && <ResultTxt txt={`eth-sig-util: ${signMessageVerifyResult}`} />}
-            {signMessageVerifyECResult && <ResultTxt txt={`personal_ecRecover: ${signMessageVerifyECResult}`} />}
+            {signMessageVerifyResult && (
+              <ResultTxt txt={`eth-sig-util: ${signMessageVerifyResult}`} />
+            )}
+            {signMessageVerifyECResult && (
+              <ResultTxt
+                txt={`personal_ecRecover: ${signMessageVerifyECResult}`}
+              />
+            )}
           </CardMethod>
         </div>
       </div>
 
       <CardMethod title="Send Token">
-        <CustomButton onClick={() => handleSendToken()} title="Send" className="mt-6" />
+        <CustomButton
+          onClick={() => handleSendToken()}
+          title="Send"
+          className="mt-6"
+        />
         {resultSendToken && <ResultTxt txt={resultSendToken} />}
       </CardMethod>
 
       <CardMethod title="Send Transaction">
-        <CustomButton title="Send" onClick={() => handleSendTransaction()} className="mt-6" />
+        <CustomButton
+          title="Send"
+          onClick={() => handleSendTransaction()}
+          className="mt-6"
+        />
         {resultSendTrans && <ResultTxt txt={resultSendTrans} />}
       </CardMethod>
 
       <div>
         <CardMethod title="Sign Typed Data">
-          <CustomButton onClick={() => handleSignTypedData()} title="Sign" className="mt-6" />
+          <CustomButton
+            onClick={() => handleSignTypedData()}
+            title="Sign"
+            className="mt-6"
+          />
           {resultSigTypedData && <ResultTxt txt={resultSigTypedData} />}
         </CardMethod>
 
         <div className="mt-2">
           <CardMethod title="Verify">
-            <CustomButton onClick={() => verifySignData()} title="Verify" className="mt-6" />
-            {signTypedDataVerifyResult && <ResultTxt txt={signTypedDataVerifyResult} />}
+            <CustomButton
+              onClick={() => verifySignData()}
+              title="Verify"
+              className="mt-6"
+            />
+            {signTypedDataVerifyResult && (
+              <ResultTxt txt={signTypedDataVerifyResult} />
+            )}
           </CardMethod>
         </div>
       </div>
 
       <div>
         <CardMethod title="Sign Typed Data v3">
-          <CustomButton onClick={() => handleSignTypedDataV3()} title="Sign" className="mt-6" />
+          <CustomButton
+            onClick={() => handleSignTypedDataV3()}
+            title="Sign"
+            className="mt-6"
+          />
           {resultSigTypedDatav3 && <ResultTxt txt={resultSigTypedDatav3} />}
         </CardMethod>
 
         <div className="mt-2">
           <CardMethod title="Verify">
-            <CustomButton onClick={() => verifySignDataV3()} title="Verify" className="mt-6" />
-            {signTypedDataV3VerifyResult && <ResultTxt txt={signTypedDataV3VerifyResult} />}
+            <CustomButton
+              onClick={() => verifySignDataV3()}
+              title="Verify"
+              className="mt-6"
+            />
+            {signTypedDataV3VerifyResult && (
+              <ResultTxt txt={signTypedDataV3VerifyResult} />
+            )}
           </CardMethod>
         </div>
       </div>
 
       <div>
         <CardMethod title="Sign Typed Data v4">
-          <CustomButton onClick={() => handleSignTypedDataV4()} title="Sign" className="mt-6" />
+          <CustomButton
+            onClick={() => handleSignTypedDataV4()}
+            title="Sign"
+            className="mt-6"
+          />
           {resultSigTypedDatav4 && <ResultTxt txt={resultSigTypedDatav4} />}
         </CardMethod>
 
         <div className="mt-2">
           <CardMethod title="Verify">
-            <CustomButton onClick={() => verifySignDataV4()} title="Verify" className="mt-6" />
-            {signTypedDataV4VerifyResult && <ResultTxt txt={signTypedDataV4VerifyResult} />}
+            <CustomButton
+              onClick={() => verifySignDataV4()}
+              title="Verify"
+              className="mt-6"
+            />
+            {signTypedDataV4VerifyResult && (
+              <ResultTxt txt={signTypedDataV4VerifyResult} />
+            )}
           </CardMethod>
         </div>
       </div>
 
       <CardMethod title="Add Token">
-        <CustomButton onClick={() => handleWatchAsset()} title="Add" className="mt-6" />
+        <CustomButton
+          onClick={() => handleWatchAsset()}
+          title="Add"
+          className="mt-6"
+        />
         {resultWatchAsset && <ResultTxt txt={resultWatchAsset} />}
       </CardMethod>
 
       <CardMethod title="ethSign">
-        <CustomButton onClick={() => handleEthSign()} title="Sign" className="mt-6" />
+        <CustomButton
+          onClick={() => handleEthSign()}
+          title="Sign"
+          className="mt-6"
+        />
         {resultEthSign && <ResultTxt txt={resultEthSign} />}
       </CardMethod>
 
       <CardMethod title="getEncryptionPublicKey">
-        <CustomButton onClick={() => handleGetEncryptionPublicKey()} title="getEncryptionPublicKey" className="mt-6" />
-        {resultGetEncryptionPublicKey && <ResultTxt txt={resultGetEncryptionPublicKey} />}
+        <CustomButton
+          onClick={() => handleGetEncryptionPublicKey()}
+          title="getEncryptionPublicKey"
+          className="mt-6"
+        />
+        {resultGetEncryptionPublicKey && (
+          <ResultTxt txt={resultGetEncryptionPublicKey} />
+        )}
       </CardMethod>
 
       <CardMethod title="ethDecrypt">
-        <CustomButton onClick={() => handleEthDecrypt()} title="ethDecrypt" className="mt-6" />
+        <CustomButton
+          onClick={() => handleEthDecrypt()}
+          title="ethDecrypt"
+          className="mt-6"
+        />
         {resultEthDecrypt && <ResultTxt txt={resultEthDecrypt} />}
       </CardMethod>
 
-      <CardMethod title="Add Chain">
-        <CustomButton onClick={() => handleAddChain()} title="Add" className="mt-6" />
-      </CardMethod>
+      {/* <CardMethod title="Add Chain">
+        <CustomButton
+          onClick={() => handleAddChain()}
+          title="Add"
+          className="mt-6"
+        />
+      </CardMethod> */}
     </div>
   );
 };
