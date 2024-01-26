@@ -18,20 +18,42 @@ import PolkadotSection from '@/components/polkadot-section';
 export const revalidate = 0;
 
 const HomePage = () => {
-  const { selectedChainId, selectedBlockChain, disconnect, connected, address, publicKey, wallet } = useWallet();
+  const {
+    selectedChainId,
+    selectedBlockChain,
+    disconnect,
+    connected,
+    address,
+    publicKey,
+    wallet,
+  } = useWallet();
   const { openWalletModal, switchTheme } = useWalletModal();
   const [isLightMode, setIsLightMode] = useState(false);
   const renderContent = () => {
-    if (selectedBlockChain === 'evm' && (selectedChainId as any) === '0x61') return <ContentBNBTest />;
-    if (selectedBlockChain === 'evm' && (selectedChainId as any) === 'injective-1') return <ContentInjective />;
+    if (selectedBlockChain === 'evm' && (selectedChainId as any) === '0x61')
+      return <ContentBNBTest />;
+    if (
+      selectedBlockChain === 'evm' &&
+      (selectedChainId as any) === 'injective-1'
+    )
+      return <ContentInjective />;
     if (selectedBlockChain === 'evm') return <ContentEvm />;
-    if (selectedBlockChain === 'cosmos' && (selectedChainId as any) === 'atlantic-2') {
+    if (
+      selectedBlockChain === 'cosmos' &&
+      (selectedChainId as any) === 'atlantic-2'
+    ) {
       return <ContentSeiTest />;
     }
-    if (selectedBlockChain === 'cosmos' && (selectedChainId as any) === 'injective-888') {
+    if (
+      selectedBlockChain === 'cosmos' &&
+      (selectedChainId as any) === 'injective-888'
+    ) {
       return <ContentInjectiveTestnet />;
     }
-    if (selectedBlockChain === 'cosmos' && (selectedChainId as any) === 'injective-1') {
+    if (
+      selectedBlockChain === 'cosmos' &&
+      (selectedChainId as any) === 'injective-1'
+    ) {
       return <ContentInjective />;
     }
     if (selectedBlockChain === 'cosmos') return <ContentCosmos />;
@@ -53,12 +75,15 @@ const HomePage = () => {
       // document.documentElement.setAttribute('data-theme', 'light');
       switchTheme('light');
       setIsLightMode(true);
+
+      //
     }
   };
 
   useEffect(() => {
     const getIsLightMode =
-      localStorage.getItem('theme') === 'light' || document.documentElement.getAttribute('data-theme') === 'light';
+      localStorage.getItem('theme') === 'light' ||
+      document.documentElement.getAttribute('data-theme') === 'light';
     switchTheme(getIsLightMode ? 'light' : 'dark');
     // document.documentElement.setAttribute('data-theme', getIsLightMode ? 'light' : 'dark');
 
@@ -81,7 +106,11 @@ const HomePage = () => {
 
       <div className="mx-auto max-w-7xl px-8 py-10 h-[300px] sm:h-[400px] xl:h-[446px] justify-center flex flex-col">
         <div className="text-textPrimary z-10 flex-col text-[#ffffff] flex justify-center">
-          <img src="https://connect.coin98.com/assets/images/logos/Coin98TextLogo.svg" className="w-36" alt="" />
+          <img
+            src="https://connect.coin98.com/assets/images/logos/Coin98TextLogo.svg"
+            className="w-36"
+            alt=""
+          />
 
           <div className="text-[2.8rem]">
             <span className="text-[#E5B842]">Coin98</span> Connect
@@ -100,7 +129,11 @@ const HomePage = () => {
             />
           )}
           {connected && (
-            <CustomButton icon={<LogOut size={20} className="ml-2" />} title="Disconnect" onClick={disconnect} />
+            <CustomButton
+              icon={<LogOut size={20} className="ml-2" />}
+              title="Disconnect"
+              onClick={disconnect}
+            />
           )}
           <CustomButton
             icon={isLightMode ? <MoonStar size={20} /> : <Sun size={20} />}
@@ -113,10 +146,15 @@ const HomePage = () => {
         {connected && (
           <div>
             <div className="mt-10 text-[20px]">
-              <h4 className="text-3xl text-[#ffffff] uppercase">{selectedBlockChain}</h4>
+              <h4 className="text-3xl text-[#ffffff] uppercase">
+                {selectedBlockChain}
+              </h4>
               <div className="mt-4 flex flex-col lg:flex-row gap-3 text-xs font-normal">
                 <div className="border border-[#FDD05A] text-[#FDD05A] px-3 py-2 rounded-full">
-                  Wallet Name: <span className="text-[#fff] pl-2">{wallet?.adapter.name}</span>
+                  Wallet Name:{' '}
+                  <span className="text-[#fff] pl-2">
+                    {wallet?.adapter.name}
+                  </span>
                 </div>
                 {address && (
                   <div className="border border-[#FDD05A] text-[#FDD05A] px-3 py-2 rounded-full">
@@ -125,7 +163,10 @@ const HomePage = () => {
                 )}
                 {publicKey && (
                   <div className="border border-[#FDD05A] text-[#FDD05A] px-3 py-2 rounded-full">
-                    Publickey: <span className="text-[#fff] pl-2">{publicKey?.toBase58()}</span>
+                    Publickey:{' '}
+                    <span className="text-[#fff] pl-2">
+                      {publicKey?.toBase58()}
+                    </span>
                   </div>
                 )}
                 {selectedChainId && (
